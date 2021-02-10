@@ -1,10 +1,32 @@
 $size: 100px;
 $gap: 1px;
 $border: 1px solid #000;
+
 @mixin centered {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin mainStayl {
+  height: $size;
+  width: $size;
+  box-sizing: border-box;
+  margin: 0 $gap $gap 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  background-color: #eee;
+  border: $border;
+  &::after {
+    display: inline;
+  }
+  &:hover {
+    margin-top: -20px;
+    margin-bottom: 0;
+    background-color: #ffbfcb;
+    transition-duration: 0.5s;
+    cursor: pointer;
+  }
 }
 
 body {
@@ -29,26 +51,10 @@ body {
 @for $i from 1 through 31 {
   .calendar-#{$i} div:nth-child(-n+#{$i}) {
     @include centered();
-    height: $size;
-    width: $size;
-    box-sizing: border-box;
-    margin: 0 $gap $gap 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 30px;
-    background-color: #eee;
-    border: $border;
-    &::after {
-      display: inline;
-    }
-    &:hover {
-      margin-top: -20px;
-      margin-bottom: 0;
-      background-color: #ffbfcb;
-      transition-duration: 0.5s;
-      cursor: pointer;
-    }
+    @include mainStayl();
   }
 }
+
 $days-margins:
   "tue" 101px,
   "wed" 202px,
@@ -56,6 +62,7 @@ $days-margins:
   "fri" 404px,
   "sat" 505px,
   "sun" 606px;
+
 @each $day, $margin in $days-margins {
   .calendar-#{$day}:first-child {
     div:first-child {
